@@ -212,3 +212,31 @@ def quick_sort(nums):  # n^2
             _quick_sort(items, split_index + 1, high)
 
     _quick_sort(nums, 0, nums.get_len() - 1)
+def shell_sort(nums): 
+  
+    # Start with a big gap, then reduce the gap 
+    n = nums.get_len() 
+    gap = n//2
+  
+    # Do a gapped insertion sort for this gap size. 
+    # The first gap elements a[0..gap-1] are already in gapped  
+    # order keep adding one more element until the entire array 
+    # is gap sorted 
+    while gap > 0: 
+  
+        for i in range(gap,n): 
+  
+            # add a[i] to the elements that have been gap sorted 
+            # save a[i] in temp and make a hole at position i 
+            temp = nums.values[i] 
+  
+            # shift earlier gap-sorted elements up until the correct 
+            # location for a[i] is found 
+            j = i 
+            while  j >= gap and nums.values[j-gap] >temp: 
+                nums.set(j,nums.values[j-gap]) 
+                j -= gap 
+  
+            # put temp (the original a[i]) in its correct location 
+            nums.set(j,temp) 
+        gap //= 2
